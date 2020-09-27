@@ -6,6 +6,8 @@ import axios from "axios";
 import { LeafletMouseEvent } from "leaflet";
 import api from "../../services/api";
 
+import Dropzone from "../../components/Dropzone";
+
 import "./styles.css";
 
 import logo from "../../assets/logo.svg";
@@ -49,8 +51,30 @@ const CreatePoint = () => {
     0,
     0,
   ]); // [latitude, longitude]
-  
+  const [selectedFile, setSelectedFile] = useState<File>();
+
   const history = useHistory();
+
+  useEffect(() => {
+    const INITIAL_LAT_WHEN_GEOLOCATION_FAILS = -22.7633568;
+    const INITIAL_LNG_WHEN_GEOLOCATION_FAILS = -47.1574026;
+
+    // *************************
+    // FIND THE CURRENT LOCATION
+    // UNCOMMENT WHEN DEPLOY
+    // *************************
+    // navigator.geolocation.getCurrentPosition((position) => {
+    //   const { latitude, longitude } = position.coords;
+    //   setInitialPosition([latitude, longitude]);
+    // });
+
+    if (initialPosition.includes(0)) {
+      setInitialPosition([
+        INITIAL_LAT_WHEN_GEOLOCATION_FAILS,
+        INITIAL_LNG_WHEN_GEOLOCATION_FAILS,
+      ]);
+    }
+  }, [initialPosition]);
 
   // shows all items in the DB
   useEffect(() => {
@@ -72,7 +96,7 @@ const CreatePoint = () => {
         setUfs(ufInitials);
         //console.log(ufInitials);
       });
-  });
+  }, []);
 
   useEffect(() => {
     // if (selectedUf === "0") return;
@@ -132,30 +156,51 @@ const CreatePoint = () => {
   async function handleSubmit(event: FormEvent) {
     event.preventDefault();
 
+    // console.log(selectedFile);
+    // return;
+
     const { name, email, whatsapp } = formData;
     const uf = selectedUf;
     const city = selectedCity;
     const [latitude, longitude] = selectedPosition;
     const items = selectedItems;
 
-    const data = {
-      name,
-      email,
-      whatsapp,
-      uf,
-      city,
-      latitude,
-      longitude,
-      items,
-    };
+    // multipart/form-data format
+    const data = new FormData();
+
+    data.append("name", name);
+    data.append("email", email);
+    data.append("whatsapp", whatsapp);
+    data.append("uf", uf);
+    data.append("city", city);
+    data.append("latitude", String(latitude));
+    data.append("longitude", String(longitude));
+    data.append("items", items.join(","));
+
+    // if submit is pressed with no image
+    if (selectedFile) {
+      data.append("image", selectedFile);
+    }
+
+    // json format
+    // const data = {
+    //   name,
+    //   email,
+    //   whatsapp,
+    //   uf,
+    //   city,
+    //   latitude,
+    //   longitude,
+    //   items,
+    // };
 
     //console.log(data);
 
-    await api.post('points', data);
+    await api.post("points", data);
 
-    alert('Ponto de coleta criado!');
+    alert("Ponto de coleta criado!");
 
-    history.push('/'); // send to home page
+    history.push("/"); // send to home page
   }
 
   return (
@@ -173,6 +218,8 @@ const CreatePoint = () => {
         <h1>
           Cadastro do <br /> ponto de coleta
         </h1>
+
+        <Dropzone onFileUploaded={setSelectedFile} />
 
         <fieldset>
           <legend>

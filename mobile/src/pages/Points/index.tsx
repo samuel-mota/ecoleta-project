@@ -27,6 +27,7 @@ interface Point {
   id: number;
   name: string;
   image: string;
+  image_url: string;
   latitude: number;
   longitude: number;
 }
@@ -44,7 +45,7 @@ const Points = () => {
     0,
     0,
   ]);
-  
+
   const navigation = useNavigation();
   const route = useRoute();
 
@@ -98,7 +99,7 @@ const Points = () => {
   }
 
   function handleNavigateToDetail(id: number) {
-    navigation.navigate("Detail", {point_id: id});
+    navigation.navigate("Detail", { point_id: id });
   }
 
   function handleSelectedItem(id: number) {
@@ -154,7 +155,7 @@ const Points = () => {
                     <Image
                       style={styles.mapMarkerImage}
                       source={{
-                        uri: point.image,
+                        uri: point.image_url,
                       }}
                     />
                     <Text style={styles.mapMarkerTitle}>{point.name}</Text>

@@ -6,13 +6,11 @@ Project built in the NLW week.
 
 - Typescript,
 - ReactJS,
-- Express,
-- Knex,
-- SQLite3,
-- Cors,
 - Axios,
 - React-Leaflet,
-- HTML, CSS
+- React Dropzone,
+- HTML, 
+- CSS
 
 ## Technologies used in mobile:
 
@@ -26,3 +24,15 @@ Project built in the NLW week.
 - Expo-location,
 - Expo-mail-composer,
 - Axios
+
+## Server:
+
+- Typescript,
+- ReactJS,
+- Knex,
+- Express,
+- Cors,
+- TS-Node,
+- SQLite3,
+- Multer (multipart/form-data),
+- Celebrate - Joi (validation library)

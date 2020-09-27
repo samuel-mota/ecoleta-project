@@ -1,0 +1,8 @@
+node_modules
+
+# ignore all images 
+uploads/*
+# keep svg files, keep this order
+!uploads/*.svg
+
+*.sqlite
