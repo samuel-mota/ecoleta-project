@@ -9,13 +9,12 @@ import Detail from "./pages/Detail";
 const AppStack = createStackNavigator();
 
 const Routes = () => {
-  // cardStyle = apply in all pages/screens
-
   return (
     <NavigationContainer>
       <AppStack.Navigator 
         headerMode="none"
         screenOptions={{
+          // cardStyle = apply in all pages/screens
           cardStyle: {
             backgroundColor: "#f0f0f5"
           }

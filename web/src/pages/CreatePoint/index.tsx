@@ -12,7 +12,7 @@ import "./styles.css";
 
 import logo from "../../assets/logo.svg";
 
-// array or object = it's necessary to inform a type of the variable
+// array or object = it's necessary to inform a type of the variable to store
 
 interface Item {
   id: number;

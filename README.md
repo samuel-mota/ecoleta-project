@@ -24,6 +24,7 @@ Project built in the NLW week.
 - Expo-location,
 - Expo-mail-composer,
 - Axios
+- React-native Picker Select (to implement)
 
 ## Server:
 
@@ -35,4 +36,4 @@ Project built in the NLW week.
 - TS-Node,
 - SQLite3,
 - Multer (multipart/form-data),
-- Celebrate - Joi (validation library)
+- Celebrate - Hapi/Joi (validation library)
